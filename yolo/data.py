@@ -19,7 +19,7 @@ import matplotlib.patches as patches
 
 # The dataset class
 class CrackerBox(data.Dataset):
-    def __init__(self, image_set = 'train', data_path = 'data'):
+    def __init__(self, image_set = 'train', data_path = '/content/CS4375_HW3/yolo/data'):
 
         self.name = 'cracker_box_' + image_set
         self.image_set = image_set
@@ -68,7 +68,56 @@ class CrackerBox(data.Dataset):
         # gt file
         filename_gt = self.gt_paths[idx]
         
-        ### ADD YOUR CODE HERE ###
+            # Corresponding image path
+        filename_img = filename_gt.replace('-box.txt', '.jpg')
+        
+        # Load and preprocess the image
+        image = cv2.imread(filename_img)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = cv2.resize(image, (self.yolo_image_size, self.yolo_image_size))
+        image = image.astype(np.float32)
+        image -= self.pixel_mean  # Normalize using pixel mean
+        image /= 255.0  # Scale to [0, 1]
+        image_blob = torch.tensor(image.transpose(2, 0, 1), dtype=torch.float32)  # Convert to (C, H, W)
+        
+        # Load ground truth bounding box
+        with open(filename_gt, 'r') as f:
+            x1, y1, x2, y2 = map(float, f.readline().strip().split())
+
+        # Scale bounding box to YOLO image size
+        x1 *= self.scale_width
+        y1 *= self.scale_height
+        x2 *= self.scale_width
+        y2 *= self.scale_height
+
+        # Compute bounding box center, width, and height
+        cx = (x1 + x2) / 2
+        cy = (y1 + y2) / 2
+        w = x2 - x1
+        h = y2 - y1
+
+        # Normalize to [0, 1]
+        cx /= self.yolo_image_size
+        cy /= self.yolo_image_size
+        w /= self.yolo_image_size
+        h /= self.yolo_image_size
+
+        # Identify grid cell
+        grid_x = int(cx * self.yolo_grid_num)
+        grid_y = int(cy * self.yolo_grid_num)
+
+        # Compute offset within grid cell
+        cx_offset = (cx * self.yolo_grid_num) - grid_x
+        cy_offset = (cy * self.yolo_grid_num) - grid_y
+
+        # Initialize ground truth box and mask
+        gt_box_blob = torch.zeros((5, self.yolo_grid_num, self.yolo_grid_num), dtype=torch.float32)
+        gt_mask_blob = torch.zeros((self.yolo_grid_num, self.yolo_grid_num), dtype=torch.float32)
+
+        # Populate grid cell
+        gt_box_blob[:, grid_y, grid_x] = torch.tensor([cx_offset, cy_offset, w, h, 1.0], dtype=torch.float32)
+        gt_mask_blob[grid_y, grid_x] = 1.0
+
 
         # this is the sample dictionary to be returned from this function
         sample = {'image': image_blob,
