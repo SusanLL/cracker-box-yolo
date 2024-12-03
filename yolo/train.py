@@ -45,7 +45,7 @@ if __name__ == '__main__':
     num_workers = 2
 
     # dataset
-    dataset_train = CrackerBox('train')  
+    dataset_train = CrackerBox('train', data_path = '/content/CS4375_HW3/yolo/data')  
     train_loader = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=num_workers)
     epoch_size = len(train_loader)
 
