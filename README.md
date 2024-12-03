@@ -15,7 +15,7 @@ Install python packages
    pip install -r requirement.txt
    ```
 **Run the Code**
-
+```Shell
 %run /content/CS4375_HW3/yolo/data.py
 
 %run /content/CS4375_HW3/yolo/modelpy
@@ -25,3 +25,4 @@ Install python packages
 %run /content/CS4375_HW3/yolo/train.py
 
 %run /content/CS4375_HW3/yolo/test.py
+```
