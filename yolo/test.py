@@ -75,7 +75,7 @@ def visualize(image, gt, detections):
 if __name__ == '__main__':
 
     # dataset
-    dataset = CrackerBox('val')  
+    dataset = CrackerBox('val', data_path = '/content/CS4375_HW3/yolo/data')  
     data_loader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True, num_workers=0)
     epoch_size = len(data_loader)
 
