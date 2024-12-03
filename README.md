@@ -17,7 +17,11 @@ Install python packages
 **Run the Code**
 
 %run /content/CS4375_HW3/yolo/data.py
+
 %run /content/CS4375_HW3/yolo/modelpy
+
 %run /content/CS4375_HW3/yolo/loss.py
+
 %run /content/CS4375_HW3/yolo/train.py
+
 %run /content/CS4375_HW3/yolo/test.py
