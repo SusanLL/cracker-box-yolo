@@ -8,7 +8,7 @@ import os
 os.chdir("/content")
 print("Current directory:", os.getcwd())
 
-!git clone https://github.com/SusanLL/CS4375_HW3.git /content/CS4375_HW3
+!git clone https://github.com/SusanLL/cracker-box-yolo.git /content/cracker-box-yolo
 ```
 Install python packages
    ```Shell
@@ -26,4 +26,5 @@ Install python packages
 
 %run /content/CS4375_HW3/yolo/test.py
 ```
+
 
