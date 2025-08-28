@@ -1,4 +1,4 @@
-# cs4375
+This project implements a simplified YOLO pipeline to detect a single “cracker box” object from 200 RGB images.
 
 Create or open google colab to run the code
 ```Shell
@@ -26,3 +26,4 @@ Install python packages
 
 %run /content/CS4375_HW3/yolo/test.py
 ```
+
