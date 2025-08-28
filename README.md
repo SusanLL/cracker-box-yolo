@@ -16,15 +16,16 @@ Install python packages
    ```
 **Run the Code**
 ```Shell
-%run /content/CS4375_HW3/yolo/data.py
+%run /content/cracker-box-yolo/yolo/data.py
 
-%run /content/CS4375_HW3/yolo/modelpy
+%run /content/cracker-box-yolo/yolo/modelpy
 
-%run /content/CS4375_HW3/yolo/loss.py
+%run /content/cracker-box-yolo/yolo/loss.py
 
-%run /content/CS4375_HW3/yolo/train.py
+%run /content/cracker-box-yolo/yolo/train.py
 
-%run /content/CS4375_HW3/yolo/test.py
+%run /content/cracker-box-yolo/yolo/test.py
 ```
+
 
 
